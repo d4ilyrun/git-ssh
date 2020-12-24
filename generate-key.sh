@@ -9,7 +9,7 @@ fi
 RSA_FILE=$HOME/.ssh/$RSA_NAME/$RSA_NAME
 
 # create ssh directory
-mkdir -pv $HOME/.ssh/$RSA_NAME
+mkdir -p $HOME/.ssh/$RSA_NAME
 
 if [ -f  "$RSA_FILE" ]; then
     echo "$RSA_FILE already exists."
@@ -23,7 +23,14 @@ else
         esac
     done
 
-   # ADD KEY PAIR TO AGENT 
-   eval "$(ssh-agent -s)"
-   ssh-add $RSA_FILE
+    # ADD KEY PAIR TO AGENT 
+    eval "$(ssh-agent -s)"
+    ssh-add $RSA_FILE
+
+    # DISPLAY RESULTING KEY
+    clear
+    echo "Key succesfully generated in file $RSA_FILE !"
+    echo "You may now add the 'id_rsa.pub' file's content to your github account."
+    echo "PUBLIC KEY:"
+    cat $RSA_FILE.pub
 fi
